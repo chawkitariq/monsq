@@ -3,7 +3,11 @@ services:
   db:
     image: mariadb
     restart: always
+    volumes:
+      - "dbdata:/var/lib/mysql"
     env_file: ".env"
+    ports:
+      - 3306:3306
     environment:
       MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       MARIADB_USER: ${DB_USER}
@@ -20,9 +24,13 @@ services:
   nginx:
     image: nginx:latest
     volumes:
-      - "./nginx/prod.conf:/etc/nginx/nginx.conf"
+      - "./nginx/dev.conf:/etc/nginx/nginx.conf"
       - "./:/app"
     ports:
       - 80:80
     depends_on:
       - phpfpm
+
+volumes:
+  dbdata:
+    driver: local
