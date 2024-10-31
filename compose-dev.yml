@@ -31,6 +31,12 @@ services:
     depends_on:
       - phpfpm
 
+  composer:
+    image: composer
+    command: "composer install"
+    volumes:
+      - "./:/app"
+
 volumes:
   dbdata:
     driver: local

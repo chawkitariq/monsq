@@ -18,9 +18,5 @@ jobs:
                 script: |
                     cd inscreation.fr
                     git pull origin main
-                    docker run --rm --interactive --tty \
-                    --volume $PWD:/app \
-                    --user $(id -u):$(id -g) \
-                    composer install
                     docker compose -f compose-prod.yml down
                     docker compose -f compose-prod.yml up -d

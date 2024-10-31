@@ -3,6 +3,8 @@ services:
   db:
     image: mariadb
     restart: always
+    volumes:
+      - "dbdata:/var/lib/mysql"
     env_file: ".env"
     environment:
       MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
@@ -26,3 +28,7 @@ services:
       - 80:80
     depends_on:
       - phpfpm
+
+volumes:
+  dbdata:
+    driver: local
